@@ -1,0 +1,20 @@
+.posts_list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.post_item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.post_item h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.post_item p {
+  margin: 0;
+}

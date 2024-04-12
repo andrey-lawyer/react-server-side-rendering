@@ -1,0 +1,58 @@
+{
+  "name": "react-ssr",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
+    "nth-check": "^2.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.3"
+  },
+  "scripts": {
+    "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
+    "dev:start": "nodemon ./server-build/index.js",
+    "dev": "npm-run-all --parallel build dev:*",
+    "start": "react-scripts start",
+    "start-server": "node server-build/index.js",
+    "build-server": "NODE_ENV=production webpack --config webpack.server.js --mode=production",
+    "build-client": "react-scripts build",
+    "build": "npm-run-all --parallel build-server build-client"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "browserslist": "^4.23.0",
+    "nodemon": "^3.1.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.38",
+    "typescript": "^5.4.5",
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.5"
+  }
+}

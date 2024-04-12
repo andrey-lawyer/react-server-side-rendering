@@ -1,0 +1,16 @@
+.albums_list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.album_item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.album_item h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}

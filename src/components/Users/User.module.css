@@ -1,0 +1,36 @@
+.usersList {
+  list-style: none;
+  padding: 0;
+}
+
+.userCard {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.links a {
+  display: block;
+  margin-right: 10px;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.links a:hover {
+  background-color: #0056b3;
+}
