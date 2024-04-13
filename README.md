@@ -9,7 +9,7 @@
 
 ## Introduction
 
-This project, titled "react-ssr," is a server-side rendered React application designed to provide users with dynamic content based on their interactions. Leveraging React Router for client-side routing and Express.js for server-side rendering, this application offers a seamless user experience.
+This project is a server-side rendered React application designed to provide users with dynamic content based on their interactions. Leveraging React Router for client-side routing and Express.js for server-side rendering, this application offers a seamless user experience. The project was tested on the version node 14.21.3
 
 ## Features
 
@@ -46,12 +46,10 @@ This project is built using the following technologies:
 ## Running
 
 ```bash
-# development
  npm run dev
-
-# production mode
- npm run build
 ```
+
+After that, you can access the application in your web browser at http://localhost:3006.
 
 ## Deployment
 
