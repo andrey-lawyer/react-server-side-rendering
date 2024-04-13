@@ -2,6 +2,6 @@ version: "3"
 
 services:
   react-ssr:
-    build: .
+    image: andreylawyer/react-ssr-react-ssr
     ports:
       - "4005:3006"

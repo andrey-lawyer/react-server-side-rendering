@@ -5,7 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { ServerContext } from './services/serverContext';
 
+
+// taken from https://redux.js.org/usage/server-rendering
 const serverData = window.__PRELOADED_STATE__
+
 delete window.__PRELOADED_STATE__
 
 ReactDOM.render(

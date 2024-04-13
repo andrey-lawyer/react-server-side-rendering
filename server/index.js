@@ -9,33 +9,30 @@ import ReactDOMServer from "react-dom/server";
 import { matchPath } from "react-router-dom";
 
 import App from "../src/App";
-import { ServerContext } from '../src/services/serverContext';
+import { ServerContext } from "../src/services/serverContext";
 
-import { fetchAlbums, fetchPosts, fetchUsers } from './service';
-
+import { fetchAlbums, fetchPosts, fetchUsers } from "./service";
 
 const PORT = 3006;
 const app = express();
 
-const routes = ['/', '/about', '/:userId/posts', '/:userId/albums']
+const routes = ["/", "/about", "/:userId/posts", "/:userId/albums"];
 
 let serverData = [];
 
-
 app.get("*", async (req, res, next) => {
-
   const context = {};
 
-  const activeRoute = routes.find((route) => matchPath({ path: route }, req.path))
+  const activeRoute = routes.find((route) =>
+    matchPath({ path: route }, req.path)
+  );
 
   if (activeRoute) {
-
     // getting data from server depending on route
     if (req.url === "/") {
       serverData = await fetchUsers();
-    }
-    else {
-      const parts = req.url.split("/").filter(part => part !== "");
+    } else {
+      const parts = req.url.split("/").filter((part) => part !== "");
       const userId = parts[0];
       const lastPart = parts[1];
       if (lastPart === "posts") {
@@ -55,12 +52,12 @@ app.get("*", async (req, res, next) => {
     );
 
     const helmet = Helmet.renderStatic();
-    const indexFile = path.resolve('./build/index.html');
+    const indexFile = path.resolve("./build/index.html");
 
-    fs.readFile(indexFile, 'utf8', (err, data) => {
+    fs.readFile(indexFile, "utf8", (err, data) => {
       if (err) {
-        console.error('Something went wrong:', err);
-        return res.status(500).send('Oops, better luck next time!');
+        console.error("Something went wrong:", err);
+        return res.status(500).send("Oops, better luck next time!");
       }
 
       // setting custom title and metadata
@@ -69,26 +66,27 @@ app.get("*", async (req, res, next) => {
       shtml = shtml.replace(`<meta name="h-meta"/>`, helmet.meta.toString());
 
       return res.send(
-        shtml.replace('<div id="root"></div>', `<div id="root">${app}</div> 
+        shtml.replace(
+          '<div id="root"></div>',
+          `<div id="root">${app}</div> 
          <script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(serverData).replace(
-          /</g,
-          '\\u003c'
-        )}
-        </script>`)
+         window.__PRELOADED_STATE__ = ${JSON.stringify(serverData).replace(
+            /</g,
+            "\\u003c"
+          )}
+        </script>`
+        )
       );
-
-
     });
-  }
-  else {
+  } else {
     next();
   }
 });
 
-app.use(express.static('./build'));
+app.use(express.static("./build"));
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
 

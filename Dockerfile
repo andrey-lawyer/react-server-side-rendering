@@ -13,3 +13,4 @@ RUN npm run build
 EXPOSE 4005
 
 CMD ["node", "server-build/index.js"]
+
