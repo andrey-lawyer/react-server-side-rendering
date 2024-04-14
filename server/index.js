@@ -8,17 +8,18 @@ import { StaticRouter } from "react-router-dom/server";
 import ReactDOMServer from "react-dom/server";
 import { matchPath } from "react-router-dom";
 
-import App from "../src/App";
+
 import { ServerContext } from "../src/services/serverContext";
+import { PORT, routes } from './data';
+import { serverDataMiddleware } from './serverDataMiddleware';
 
-import { fetchAlbums, fetchPosts, fetchUsers } from "./service";
+import App from "../src/App";
 
-const PORT = 3006;
 const app = express();
 
-const routes = ["/", "/about", "/:userId/posts", "/:userId/albums"];
 
-let serverData = [];
+// getting data from server depending on route
+app.use(serverDataMiddleware);
 
 app.get("*", async (req, res, next) => {
   const context = {};
@@ -28,24 +29,10 @@ app.get("*", async (req, res, next) => {
   );
 
   if (activeRoute) {
-    // getting data from server depending on route
-    if (req.url === "/") {
-      serverData = await fetchUsers();
-    } else {
-      const parts = req.url.split("/").filter((part) => part !== "");
-      const userId = parts[0];
-      const lastPart = parts[1];
-      if (lastPart === "posts") {
-        serverData = await fetchPosts(userId);
-      }
-      if (lastPart === "albums") {
-        serverData = await fetchAlbums(userId);
-      }
-    }
 
     const app = ReactDOMServer.renderToString(
       <StaticRouter location={req.url} context={context}>
-        <ServerContext.Provider value={serverData}>
+        <ServerContext.Provider value={req.serverData}>
           <App />
         </ServerContext.Provider>
       </StaticRouter>
@@ -70,7 +57,7 @@ app.get("*", async (req, res, next) => {
           '<div id="root"></div>',
           `<div id="root">${app}</div> 
          <script>
-         window.__PRELOADED_STATE__ = ${JSON.stringify(serverData).replace(
+         window.__PRELOADED_STATE__ = ${JSON.stringify(req.serverData).replace(
             /</g,
             "\\u003c"
           )}
